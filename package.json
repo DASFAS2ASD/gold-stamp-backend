@@ -1,49 +1,13 @@
-import express from "express";
-import cors from "cors";
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-// ✅ Root – så GET / funkar i webbläsaren
-app.get("/", (req, res) => {
-  res.json({
-    status: "ok",
-    service: "gold-stamp-backend",
-    ai_mode: process.env.AI_MODE || "not-set"
-  });
-});
-
-// ✅ POST-endpoint
-app.post("/analyze", (req, res) => {
-  const stamp = req.body.text || "";
-  let result = "";
-
-  if (/gp|gf|double|dbl|plated/i.test(stamp)) {
-    result = `Tolkning:
-Stämpeln "${stamp}" indikerar plätering.
-
-Slutsats:
-Ej massivt guld.`;
-  } else if (/\b(24k|18k|14k|10k|999|750|585|417)\b/i.test(stamp)) {
-    result = `Tolkning:
-Stämpeln "${stamp}" anger karathalt.
-
-Slutsats:
-Massivt guld.`;
-  } else {
-    result = `Tolkning:
-Stämpeln "${stamp}" är oklar.
-
-Slutsats:
-Kan ej avgöras.`;
+{
+  "name": "gold-stamp-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
   }
-
-  res.json({ result });
-});
-
-// ✅ Render kräver denna
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("Server kör på port", PORT);
-});
+}
