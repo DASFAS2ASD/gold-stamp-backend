@@ -6,8 +6,4 @@ services:
     region: frankfurt
 
     buildCommand: npm install
-    startCommand: npm start
-
-    envVars:
-      - key: AI_MODE
-        value: production
+    startCommand: node index.js
