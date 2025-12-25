@@ -3,10 +3,11 @@ import cors from "cors";
 
 const app = express();
 
+/* Middleware */
 app.use(cors());
 app.use(express.json());
 
-/* ✅ ROOT ROUTE – VIKTIGAST */
+/* ✅ Root route – så Render + webbläsare funkar */
 app.get("/", (req, res) => {
   res.json({
     status: "ok",
@@ -15,9 +16,9 @@ app.get("/", (req, res) => {
   });
 });
 
-/* DIN BEFINTLIGA ROUTE */
+/* ✅ Analyze route – POST med JSON body */
 app.post("/analyze", (req, res) => {
-  const stamp = req.body.text || "";
+  const stamp = req.body?.text || "";
   let result = "";
 
   if (/gp|gf|double|dbl|plated/i.test(stamp)) {
@@ -45,7 +46,7 @@ Kan ej avgöras.`;
   res.json({ result });
 });
 
-/* ✅ RENDER-PORT */
+/* ✅ Render-krav: använd PORT från env */
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server kör på port ${PORT}`);
