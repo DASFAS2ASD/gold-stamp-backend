@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: gold-stamp-backend
+    env: node
+    plan: free
+    region: frankfurt
+
+    buildCommand: npm install
+    startCommand: npm start
+
+    envVars:
+      - key: AI_MODE
+        value: production
